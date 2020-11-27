@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StudentApps.Data
 {
-    public class DbInitializer
+    public static class DbInitializer
     {
         public static void Initialize(StudentAppsContext context)
         {
