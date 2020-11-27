@@ -2,16 +2,16 @@
 
 namespace StudentApps.Migrations
 {
-    public partial class Testing : Migration
+    public partial class Test1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Student",
+                name: "Students",
                 columns: table => new
                 {
                     StudentNo = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
                     BirthDay = table.Column<string>(nullable: false),
@@ -20,14 +20,14 @@ namespace StudentApps.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Student", x => x.StudentNo);
+                    table.PrimaryKey("PK_Students", x => x.StudentNo);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Student");
+                name: "Students");
         }
     }
 }

@@ -27,7 +27,7 @@ namespace StudentApps
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<StudentAppsContext>(options =>
+            services.AddDbContext<StudentsAppsContext>(options =>
                     options.UseSqlite(Configuration.GetConnectionString("StudentAppsContext")));
         }
 

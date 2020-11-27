@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudentApps.Data;
@@ -12,17 +13,23 @@ namespace StudentApps
 {
     public class StudentsController : Controller
     {
-        private readonly StudentAppsContext _context;
+        private readonly StudentsAppsContext _context;
 
-        public StudentsController(StudentAppsContext context)
+        public StudentsController(StudentsAppsContext context)
         {
             _context = context;
+        }
+
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            base.OnActionExecuted(context);
+            ViewData["LijstStudenten"] = _context.Students.Where(student => student.FirstName.StartsWith("J")).Take(3);
         }
 
         // GET: Students
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Student.ToListAsync());
+            return View(await _context.Students.ToListAsync());
         }
 
         // GET: Students/Details/5
@@ -33,12 +40,14 @@ namespace StudentApps
                 return NotFound();
             }
 
-            var student = await _context.Student
+            var student = await _context.Students
                 .FirstOrDefaultAsync(m => m.StudentNo == id);
             if (student == null)
             {
                 return NotFound();
             }
+
+            
 
             return View(student);
         }
@@ -73,7 +82,7 @@ namespace StudentApps
                 return NotFound();
             }
 
-            var student = await _context.Student.FindAsync(id);
+            var student = await _context.Students.FindAsync(id);
             if (student == null)
             {
                 return NotFound();
@@ -124,7 +133,7 @@ namespace StudentApps
                 return NotFound();
             }
 
-            var student = await _context.Student
+            var student = await _context.Students
                 .FirstOrDefaultAsync(m => m.StudentNo == id);
             if (student == null)
             {
@@ -139,15 +148,15 @@ namespace StudentApps
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var student = await _context.Student.FindAsync(id);
-            _context.Student.Remove(student);
+            var student = await _context.Students.FindAsync(id);
+            _context.Students.Remove(student);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool StudentExists(int id)
         {
-            return _context.Student.Any(e => e.StudentNo == id);
+            return _context.Students.Any(e => e.StudentNo == id);
         }
     }
 }

@@ -7,13 +7,13 @@ using StudentApps.Models;
 
 namespace StudentApps.Data
 {
-    public class StudentAppsContext : DbContext
+    public class StudentsAppsContext : DbContext
     {
-        public StudentAppsContext (DbContextOptions<StudentAppsContext> options)
+        public StudentsAppsContext (DbContextOptions<StudentsAppsContext> options)
             : base(options)
         {
         }
 
-        public DbSet<StudentApps.Models.Student> Student { get; set; }
+        public DbSet<StudentApps.Models.Student> Students { get; set; }
     }
 }

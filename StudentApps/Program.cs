@@ -19,7 +19,7 @@ namespace StudentApps
             using (var scope = host.Services.CreateScope())
             {
                 DbInitializer.Initialize(scope.ServiceProvider
-                    .GetRequiredService<StudentAppsContext>());
+                    .GetRequiredService<StudentsAppsContext>());
             }
             host.Run();
         }
