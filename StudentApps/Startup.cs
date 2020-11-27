@@ -28,7 +28,7 @@ namespace StudentApps
             services.AddControllersWithViews();
 
             services.AddDbContext<StudentAppsContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("StudentAppsContext")));
+                    options.UseSqlite(Configuration.GetConnectionString("StudentAppsContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
